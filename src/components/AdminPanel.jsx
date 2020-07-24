@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Button} from 'reactstrap';
-import instance from './secret'
+import app from './secret.js'
 
-var db = instance.database();
+var db = app.database();
 
 class AdminPanel extends Component {
     constructor(props){
@@ -80,7 +80,7 @@ class AdminPanel extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-2">
-                        <Button color="info" onClick={() => instance.auth().signOut()}>Выйти</Button>
+                        <Button color="info" onClick={() => app.auth().signOut()}>Выйти</Button>
                     </div>
                     <div className="col-8 text-center title">
                         <h3>Записи в предложке:</h3>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Form, FormGroup, Button, Input, Col} from 'reactstrap';
-import instance from './secret'
+import app from './secret.js'
 
-var db = instance.database().ref('messages');
+var db = app.database().ref('messages');
 
 class EntryForm extends Component {
     constructor(props) {
@@ -71,7 +71,6 @@ class EntryForm extends Component {
                 <div className="row justify-content-center">
                     <img src="assets/images/banner2.png" alt="banner" className="img-responsive img-fluid" />
                 </div>
-
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup row className="justify-content-center">
                         <Col md={8} xs={12}>

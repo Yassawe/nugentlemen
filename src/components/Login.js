@@ -1,8 +1,8 @@
 import React, { useCallback, useContext } from 'react';
 import { withRouter, Redirect } from 'react-router';
 import {Button} from 'reactstrap';
-import instance from './secret';
-import { AuthContext } from "./Auth.js";
+import app from './secret.js';
+import { AuthContext } from "./Auth";
 
 const Login = ({ history }) => {
   const handleLogin = useCallback(
@@ -10,7 +10,7 @@ const Login = ({ history }) => {
       event.preventDefault();
       const { email, password } = event.target.elements;
       try {
-        await instance
+        await app
           .auth()
           .signInWithEmailAndPassword(email.value, password.value);
         history.push("/adminpanel");

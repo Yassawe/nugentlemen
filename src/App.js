@@ -9,15 +9,15 @@ import PrivateRoute from './components/PrivateRoute'
 
 function App() {
   return (
-    <AuthProvider>
       <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={EntryForm} />
-          <Route exact path ="/login" component={Login} />
-          <PrivateRoute exact path="/adminpanel" component={AdminPanel} />
-        </Switch>
+        <AuthProvider>
+          <Switch>
+            <Route exact path="/" component={EntryForm} />
+            <Route exact path="/login" component={Login} />
+            <PrivateRoute exact path="/adminpanel" component={AdminPanel} />
+          </Switch>
+        </AuthProvider>
       </BrowserRouter>
-    </AuthProvider>
   );
 }
 
