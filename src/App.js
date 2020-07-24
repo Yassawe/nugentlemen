@@ -1,12 +1,17 @@
 import React from 'react';
 import './App.css';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import EntryForm from "./components/EntryForm";
+import AdminPanel from "./components/AdminPanel";
 
 function App() {
   return (
-    <div className="App">
-      <EntryForm />
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={EntryForm} />
+        <Route exact path="/adminpanel" component={AdminPanel} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import {Form, FormGroup, Button, Input, Col} from 'reactstrap';
+import instance from './secret'
+
+var db = instance.database().ref('messages');
 
 class EntryForm extends Component {
     constructor(props) {
         super(props);
-
         this.state={
             message: '',
             status: 'Отправить',
@@ -17,11 +19,45 @@ class EntryForm extends Component {
     handleSubmit(event){
         event.preventDefault();    
         const message = this.state.message;
-        
         this.setState({
             message:'',
         });
-        
+
+        var send = db.push();
+
+        if (message!==''){
+            send.set(
+                {
+                    message: message,
+                    timestamp: new Date().toString()
+                },
+                (error) => {
+                    if(error){
+                        this.buttonChange('Произошла ошибка', 'danger')
+                    } else {
+                        this.buttonChange('Успешно отправлено', 'success')
+                    }
+                }
+            );
+        } else {
+            this.buttonChange('Запись пуста', 'warning')
+        }
+    }
+
+    buttonChange(text, color) {
+        this.setState({
+            status: text,
+            buttonColor: color
+        },
+        () => {
+            setTimeout(() => {
+              this.setState({
+                status: 'Отправить',
+                buttonColor: 'primary'
+              });
+            }, 1000);
+          }
+        );
     }
 
     handleInputChange(event) {
@@ -29,12 +65,11 @@ class EntryForm extends Component {
             message: event.target.value
         });
     }
-
     render(){
         return(
-            <div class="container">
+            <div className="container">
                 <div className="row justify-content-center">
-                    <img src="assets/images/banner2.png" alt="banner" class="img-responsive img-fluid" />
+                    <img src="assets/images/banner2.png" alt="banner" className="img-responsive img-fluid" />
                 </div>
 
                 <Form onSubmit={this.handleSubmit}>
@@ -46,7 +81,7 @@ class EntryForm extends Component {
                     </FormGroup>
                     <FormGroup row className="justify-content-center">
                         <Col md={8} xs={12}>
-                            <Button type="submit" color={this.state.buttonColor} className="btn-block">{this.state.status}</Button>
+                            <Button type="submit" color={this.state.buttonColor} className="btn btn-block">{this.state.status}</Button>
                         </Col>
                     </FormGroup>
                 </Form>
