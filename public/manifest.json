@@ -1,0 +1,8 @@
+{
+  "short_name": "NU gentlemen",
+  "name": "website for suggestions for NU gents",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
