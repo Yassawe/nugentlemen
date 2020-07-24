@@ -13,15 +13,13 @@ class AdminPanel extends Component {
         }
 
         this.loadMessages = this.loadMessages.bind(this);
-        this.showState = this.showState.bind(this);
     }
 
     componentDidMount() {
-        window.addEventListener('load', this.loadMessages);
+        this.loadMessages();
     }
 
     loadMessages(){
-
         db.ref('messages').on('value', snapshot => {
 
             let data = snapshot.val();
@@ -55,10 +53,6 @@ class AdminPanel extends Component {
 
     }
 
-    showState(){
-        alert(this.state.messages);
-    }
-
     handleDelete(id){
         db.ref('messages/'+id).remove()
         this.loadMessages()
@@ -84,9 +78,12 @@ class AdminPanel extends Component {
 
         return(
             <div className="container">
-                <div className="row justify-content-center">
+                <div className="row">
+                    <div className="col-2">
+                        <Button color="info" onClick={() => instance.auth().signOut()}>Выйти</Button>
+                    </div>
                     <div className="col-8 text-center title">
-                        <h1>Записи в предложке:</h1>
+                        <h3>Записи в предложке:</h3>
                     </div>
                 </div>
 
